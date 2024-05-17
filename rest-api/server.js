@@ -1,3 +1,5 @@
+// import dependencies
+
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -12,20 +14,20 @@ dotenv.config();
 
 const PORT = process.env.PORT;
 
-// add middleware
+// add a middleware
 app.use(bodyParser.json());
 // connect to mongodb database
 mongoose.connect(`${process.env.DB_URL}`, {
-    userNewUrlParser: true,
+    useNewUrlParser: true,
     useUnifiedTopology: true
 });
 
 const db = mongoose.connection;
 
-db.on("error", console.error.bind(console, "MngoDB connection error:"));
-
-app.use("/products", require("./routes/productories "));
-
+db.on("error", console.error.bind(console, "MongoDB connection error:"));
+// set up routes for productAPI
+app.use("/products", require("./routes/products"));
+// start the server.
 app.listen(PORT, () => {
     console.log(`Server is running on port: ${PORT}`);
 });
